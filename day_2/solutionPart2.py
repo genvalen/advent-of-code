@@ -24,13 +24,15 @@ if __name__ == '__main__':
     desired_output = 19690720
     noun_verb_pairs = list(product(list(range(0,100)), repeat=2))
 
-    # Restore computer to "1202 program alarm" settings
+    # Try noun/verb combinations against desired output
     for p in noun_verb_pairs:
         source = open('day_2/data.txt', 'r')
         memory = [list(map(int, i.split(','))) for i in source][0]
         source.close()
         memory[1] = p[0]
         memory[2] = p[1]
+
+        # Solution
         if noun_verb_locator(memory) == desired_output:
             print(100*p[0]+p[1])
 
