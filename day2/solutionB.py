@@ -1,9 +1,9 @@
-# Day 2: 1202 Program Alarm Pt. 2
+# Day 2: 1202 Program Alarm Part 2
 # https://adventofcode.com/2019/day/2
-from solutionPart1 import opcode1, opcode2
+from solutionA import opcode1, opcode2
 from itertools import product
 
-# Simmilar script to part 1 main, but as a function;
+# Similar script to part 1 main, but as a function;
 # Function terminology changed according to AoC specifications
 def noun_verb_locator(src):
     """Transform memory based on opcodes/instructions and return position zero."""
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # Reset computer memory for each noun/verb combination
     # and try against desired output
     for p in noun_verb_pairs:
-        with open("day_2/data.txt", "r") as source:
+        with open("day2/data.txt", "r") as source:
             memory = [list(map(int, i.split(','))) for i in source][0]
         # Update combos
         memory[1] = p[0]

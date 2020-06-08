@@ -1,4 +1,4 @@
-# Day 2: 1202 Program Alarm Pt. 1
+# Day 2: 1202 Program Alarm Part 1
 # https://adventofcode.com/2019/day/2
 def opcode1(src, seg):
     """Transforms source array. Adds src values at segment positions 0-1 and
@@ -19,7 +19,7 @@ def opcode2(src, seg):
 
 
 if __name__ == '__main__':
-    with open("day_2/data.txt", "r") as source:
+    with open("day2/data.txt", "r") as source:
 
         # Slice s at 0 to cancel list-nesting
         s = [list(map(int, i.split(','))) for i in source][0]
