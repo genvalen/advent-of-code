@@ -39,3 +39,4 @@ if __name__ == '__main__':
 
     # solution
     print("Value at position 0 after program halts:", s[0])
+    

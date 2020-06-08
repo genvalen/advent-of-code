@@ -25,21 +25,20 @@ def noun_verb_locator(src):
 
 if __name__ == '__main__':
     desired_output = 19690720
-    noun_verb_pairs = list(product(list(range(0,100)), repeat=2))
+    noun_verb_pairs = list(product(range(0,100), repeat=2))
 
     # Reset computer memory for each noun/verb combination
-    # Try each combination output against desired output
+    # and try against desired output
     for p in noun_verb_pairs:
         with open("day_2/data.txt", "r") as source:
             memory = [list(map(int, i.split(','))) for i in source][0]
-
-        # Update combinations
+        # Update combos
         memory[1] = p[0]
         memory[2] = p[1]
 
         # If output matches desired output
-        # print out solution (computed equation) and break
+        # print solution and break
         if noun_verb_locator(memory) == desired_output:
             print("Solution:", 100*p[0]+p[1])
             break
-
+        
