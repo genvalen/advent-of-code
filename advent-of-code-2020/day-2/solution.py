@@ -3,6 +3,7 @@ def part_one(database_info):
     
     for range_, char, password in database_info:
         char = char.strip(":")
+        
         if char in password:
             char_count = password.count(char)
             MIN, MAX = map(int, range_.split("-"))
