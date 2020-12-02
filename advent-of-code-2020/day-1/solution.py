@@ -13,7 +13,7 @@ def part_two(nums):
                         return i * j * k
 
 
-with open("day-1/data.txt") as f:
+with open("advent-of-code-2020/day-1/data.txt") as f:
         data = [int(line.strip()) for line in f]
 
 print("Part one:", part_one(data))
