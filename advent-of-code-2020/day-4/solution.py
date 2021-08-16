@@ -1,7 +1,7 @@
 def validate_passport_categories(passport_details):
     """
     Compare passport fields against required fields.
-    Return if all required fields present (bool). 
+    Return True if all required fields are present.
     """
   
     FIELDS = {"byr", "iyr", "eyr", "hgt", "hcl", "cid", "ecl", "pid"} 
@@ -15,10 +15,11 @@ def validate_passport_categories(passport_details):
             return True
     return False
 
+
 def validate_passport_values(passport_details):
     """
     Run passport values against series of checks.
-    Return if all values passes checks (bool).
+    Return True if all values pass checks.
     """
     result = []
     elements = passport_details.split()
@@ -34,24 +35,28 @@ def validate_passport_values(passport_details):
             result.append(2020 <= int(value) <= 2030)
         elif key == "hgt":
             num, unit = value[:-2], value[-2:]
+
+            # catch None instances
             if not num: num = 0
+
             if unit == "cm":
                 result.append(150 <= int(num) <= 193)
             else:
                 result.append(59 <= int(num) <= 76)
         elif key == "hcl":
             result.append(len(value) == 7 \
-                            and value[0] == "#"\
+                            and value[0] == "#" \
                             and all([bool(c) if c in "abcdef" else c.isdigit() for c in value[1:]]))
         elif key == "ecl":
             options = set(("amb", "blu", "brn", "gry", "grn", "hzl", "oth"))
             result.append(value in options)
-        
+
         elif key == "pid":
             result.append(len(value) == 9 and value.isdigit())
 
     return all(result)
-        
+
+
 def part_one(data):
     valid = 0
     eof_marker = ["\n"]
@@ -60,12 +65,12 @@ def part_one(data):
             valid += 1
     return valid
 
+
 def part_two(data):
     valid = 0
     eof_marker = ["\n"]
     for line in data + eof_marker:
-        if validate_passport_categories(line) and \
-            validate_passport_values(line):
+        if validate_passport_values(line):
             valid += 1
     return valid
 

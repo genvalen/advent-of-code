@@ -1,6 +1,6 @@
 def part_one(database_info):
     valid = 0
-    
+
     for range_, char, password in database_info:
         char = char.strip(":")
         
@@ -27,8 +27,9 @@ def part_two(database_info):
     return valid
 
 
-with open("advent-of-code-2020/day-2/data.txt") as f:
-    data = [line.split() for line in f]
+if __name__ == "__main__":
+    with open("data.txt") as f:
+        data = [line.split() for line in f]
 
-print("Part one:", part_one(data))
-print("Part two:", part_two(data))
+    print("Part one:", part_one(data))
+    print("Part two:", part_two(data))

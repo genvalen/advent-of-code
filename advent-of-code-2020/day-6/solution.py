@@ -13,6 +13,7 @@ def part_one(data):
     
     return count
 
+
 def part_two(data):
     count = 0
     responses = set()
@@ -43,8 +44,6 @@ def part_two(data):
 if __name__ == "__main__":
     with open("data.txt") as f:
             data = f.readlines()
-    with open("output.txt", "a") as f:
-        f.write(str(part_two(data))+ "\n")
 
     print("Part one:", part_one(data))
     print("Part two:", part_two(data))
