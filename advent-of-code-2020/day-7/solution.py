@@ -1,7 +1,7 @@
 def part_one(data):
     """
-    Use input data to mimic adjaceny list;\
-    apply topological sorting to filter through adj-list(dict); \
+    Use input data to mimic adjaceny list;
+    apply topological sorting to filter through adj-list(dict);
     Return num of bags which directly/indirectly hold target.
     """
     bags = dict()
@@ -14,7 +14,7 @@ def part_one(data):
         key, value = line.split(" contain ")
 
         # make key (bag-color) singular, !plural
-        key = key[:-1] 
+        key = key[:-1]
 
         # identify bags that directly contain target
         # add all other bags into dict
@@ -34,13 +34,13 @@ def part_one(data):
                 count += 1
                 visited.add(k)
                 contains_target.add(k)
-                
+
         #remove visited bags from dict
         for bag in visited:
             del bags[bag]
 
     return count
-                
+
 
 def part_two(data):
     pass
@@ -54,3 +54,4 @@ if __name__ == "__main__":
 
     print("Part one:", part_one(data))
     # print("Part two:", part_two(data))
+    

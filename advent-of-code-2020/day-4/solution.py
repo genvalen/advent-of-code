@@ -4,7 +4,7 @@ def validate_passport_categories(passport_details):
     Return True if all required fields are present.
     """
   
-    FIELDS = {"byr", "iyr", "eyr", "hgt", "hcl", "cid", "ecl", "pid"} 
+    FIELDS = {"byr", "iyr", "eyr", "hgt", "hcl", "cid", "ecl", "pid"}
     is_valid = set()
 
     for field in passport_details.split():

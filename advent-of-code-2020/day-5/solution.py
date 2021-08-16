@@ -3,7 +3,7 @@ def binary_parser(start, end, directions):
     Use binary search to traverse a range determined by input.
     Traverse directions; for each char in direction, split the
     range in two and move into the half determiend by char:
-    F, B, L, R -> front, back, left, right.   
+    F, B, L, R -> front, back, left, right.
     """
     left, right = start, end
     pointer = 0
@@ -15,7 +15,7 @@ def binary_parser(start, end, directions):
         # choose lower half
         if directions[pointer] in "FL":
             right = mid
-        
+
         # choose upper half
         elif directions[pointer] in "BR":
             left = mid + 1
@@ -50,7 +50,7 @@ def part_one(data):
 
 def part_two(data):
     max_id = part_one(data)
-    min_id = max_id 
+    min_id = max_id
     ids_seen = set()
 
     for line in data:

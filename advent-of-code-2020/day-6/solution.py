@@ -10,7 +10,7 @@ def part_one(data):
 
         line = line.strip("\n")
         responses.update(list(line))
-    
+
     return count
 
 
@@ -30,14 +30,14 @@ def part_two(data):
         line = line.strip("\n")
         new_elements = list(line)
 
-        if is_new_group: 
+        if is_new_group:
             responses.update(new_elements)
             is_new_group = False
 
-        # overwrite responses w/ the intersection 
+        # overwrite responses w/ the intersection
         # of prev and cur sets
         responses.intersection_update(set(new_elements))
-    
+
     return count
 
 

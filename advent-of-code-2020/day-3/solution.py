@@ -23,7 +23,7 @@ def part_two(map, slopes=set):
     for right, down in slopes:
         result = part_one(map, right, down)
         product *= result
-    
+
     return product
 
 
