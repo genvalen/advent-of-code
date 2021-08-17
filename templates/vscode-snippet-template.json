@@ -21,7 +21,8 @@
 			"        f.write(str(part_one(data)) + \"\\n\")",
 			"",
 			"    print(\"Part one:\", part_one(data))",
-			"    print(\"Part two:\", part_two(data))"
+			"    print(\"Part two:\", part_two(data))",
+			""
 		],
 		"description": "advent_of_code"
 	}
