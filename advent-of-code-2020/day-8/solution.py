@@ -22,8 +22,7 @@ def part_one(data: list) -> int:
 
 
 def part_two(data):
-    index = part_one(data)
-    print(data[index])
+    pass
 
 
 if __name__ == '__main__':
