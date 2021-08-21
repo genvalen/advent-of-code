@@ -1,6 +1,11 @@
-def part_one(map, right=3, down=1):
-    """Traverse map according to slope; return no. of times 
-        coordinate lands on "#" symbol."""
+# Toboggan Trajectory
+# https://adventofcode.com/2020/day/3
+
+from typing import List, Tuple, Set
+
+def part_one(map: List[str], right: int = 3, down: int = 1) -> int:
+    """Return number of times coordinate lands on "#" symbol while
+    traversing map."""
     row_len, col_len = len(map), len(map[0])
     row, col = 0, 0 #starting coordinate
     count = 0
@@ -16,9 +21,9 @@ def part_one(map, right=3, down=1):
     return count
 
 
-def part_two(map, slopes=set):
-    """Traverse map using slopes provided;
-        multiply result of all slopes. Return final product."""
+def part_two(map: List[str], slopes: Set[Tuple[int, int]]) -> int:
+    """Return the product of the results of traveling down the map
+    according to each slope provided."""
     product = 1
     for right, down in slopes:
         result = part_one(map, right, down)

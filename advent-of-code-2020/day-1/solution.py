@@ -1,6 +1,11 @@
-def part_one(nums: list, total: int = 2020) -> int:
+# Report Repair
+# https://adventofcode.com/2020/day/1
+
+from typing import List, Set
+
+def part_one(nums: List[int], total: int = 2020) -> int:
     nums.sort()
-    seen = set()
+    seen: Set[int] = set()
 
     for num in nums:
         if not seen:
@@ -14,10 +19,10 @@ def part_one(nums: list, total: int = 2020) -> int:
 
         seen.add(num)
 
-    return
+    return -1
 
 
-def part_two(nums: list, total: int = 2020) -> int:
+def part_two(nums: List[int], total: int = 2020) -> int:
     nums.sort()
 
     for num in nums:
@@ -29,7 +34,7 @@ def part_two(nums: list, total: int = 2020) -> int:
         if two_sum_result:
             return num * two_sum_result
 
-    return
+    return -1
 
 
 if __name__ == "__main__":
@@ -38,4 +43,3 @@ if __name__ == "__main__":
 
     print("Part one:", part_one(data))
     print("Part two:", part_two(data))
- 

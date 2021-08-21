@@ -1,6 +1,12 @@
-def part_one(data):
+# Custom Customs
+# https://adventofcode.com/2020/day/6
+
+from typing import Set
+
+def part_one(data: list) -> int:
     count = 0
-    responses = set()
+    responses: Set[int] = set()
+
     eof_marker = ["\n"]
 
     for line in data + eof_marker:
@@ -14,9 +20,9 @@ def part_one(data):
     return count
 
 
-def part_two(data):
+def part_two(data: list) -> int:
     count = 0
-    responses = set()
+    responses: Set[int] = set()
     eof_marker = ["\n"]
     is_new_group = True
 
@@ -34,7 +40,7 @@ def part_two(data):
             responses.update(new_elements)
             is_new_group = False
 
-        # overwrite responses w/ the intersection
+        # overwrite `responses` w/ the intersection
         # of prev and cur sets
         responses.intersection_update(set(new_elements))
 

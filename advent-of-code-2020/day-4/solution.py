@@ -1,9 +1,36 @@
-def validate_passport_categories(passport_details):
-    """
-    Compare passport fields against required fields.
+# Passport Processing
+# https://adventofcode.com/2020/day/4
+
+from typing import List
+
+def part_one(data: List[str]) -> int:
+    valid = 0
+    eof_marker = ["\n"]
+
+    for line in data + eof_marker:
+        if validate_passport_categories(line):
+            valid += 1
+
+    return valid
+
+
+def part_two(data: List[str]) -> int:
+    valid = 0
+    eof_marker = ["\n"]
+
+    for line in data + eof_marker:
+        if validate_passport_categories(line) and \
+            validate_passport_values(line):
+            valid += 1
+
+    return valid
+
+
+def validate_passport_categories(passport_details: str) -> bool:
+    """Compare passport fields against required fields.
     Return True if all required fields are present.
     """
-  
+
     FIELDS = {"byr", "iyr", "eyr", "hgt", "hcl", "cid", "ecl", "pid"}
     is_valid = set()
 
@@ -13,12 +40,12 @@ def validate_passport_categories(passport_details):
     if FIELDS.difference(is_valid) == set() or \
             FIELDS.difference(is_valid) == {"cid"}:
             return True
+
     return False
 
 
-def validate_passport_values(passport_details):
-    """
-    Run passport values against series of checks.
+def validate_passport_values(passport_details: str) -> bool:
+    """Run passport values against series of checks.
     Return True if all values pass checks.
     """
     result = []
@@ -36,8 +63,8 @@ def validate_passport_values(passport_details):
         elif key == "hgt":
             num, unit = value[:-2], value[-2:]
 
-            # catch None instances
-            if not num: num = 0
+            # catch instance where num captures an empty str
+            if not num: num = "0"
 
             if unit == "cm":
                 result.append(150 <= int(num) <= 193)
@@ -55,24 +82,6 @@ def validate_passport_values(passport_details):
             result.append(len(value) == 9 and value.isdigit())
 
     return all(result)
-
-
-def part_one(data):
-    valid = 0
-    eof_marker = ["\n"]
-    for line in data + eof_marker:
-        if validate_passport_categories(line):
-            valid += 1
-    return valid
-
-
-def part_two(data):
-    valid = 0
-    eof_marker = ["\n"]
-    for line in data + eof_marker:
-        if validate_passport_values(line):
-            valid += 1
-    return valid
 
 
 if __name__ == "__main__":

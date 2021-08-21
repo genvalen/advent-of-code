@@ -1,4 +1,9 @@
-def part_one(database_info):
+# Password Philosophy
+# https://adventofcode.com/2020/day/2
+
+from typing import List
+
+def part_one(database_info: List[list]) -> int:
     valid = 0
 
     for range_, char, password in database_info:
@@ -14,7 +19,7 @@ def part_one(database_info):
     return valid
 
 
-def part_two(database_info):
+def part_two(database_info: List[list]) -> int:
     valid = 0
 
     for positions, char, password in database_info:

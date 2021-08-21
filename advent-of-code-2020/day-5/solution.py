@@ -1,44 +1,10 @@
-def binary_parser(start, end, directions):
-    """
-    Use binary search to traverse a range determined by input.
-    Traverse directions; for each char in direction, split the
-    range in two and move into the half determiend by char:
-    F, B, L, R -> front, back, left, right.
-    """
-    left, right = start, end
-    pointer = 0
-    mid = 0
+# Binary Boarding
+# https://adventofcode.com/2020/day/5
 
-    while pointer < len(directions):
-        mid = left + (right-left)//2
+from typing import List
 
-        # choose lower half
-        if directions[pointer] in "FL":
-            right = mid
-
-        # choose upper half
-        elif directions[pointer] in "BR":
-            left = mid + 1
-
-        pointer += 1
-
-    return left
-
-
-def get_seat_ID(directions):
-    #extract row/col directions
-    row_dirs = directions[:7]
-    col_dirs = directions[7:]
-
-    # identify correct row, col, and seat ID
-    row = binary_parser(0, 127, row_dirs)
-    col = binary_parser(0, 7, col_dirs)
-    id_ = row*8 + col
-
-    return id_
-
-
-def part_one(data):
+def part_one(data: List[str]) -> int:
+    """Return passenger ID with the highest numerical value."""
     max_id = 0
 
     for line in data:
@@ -48,7 +14,8 @@ def part_one(data):
     return max_id
 
 
-def part_two(data):
+def part_two(data: List[str]) -> int:
+    """Identify missing ID and return its value."""
     max_id = part_one(data)
     min_id = max_id
     ids_seen = set()
@@ -61,6 +28,48 @@ def part_two(data):
     missing_id = set(range(min_id, max_id+1)).difference(ids_seen).pop()
 
     return missing_id
+
+
+def get_seat_ID(directions: str) -> int:
+    """Generate an ID based on passenger seating information."""
+    # get directions for row and col
+    row_directions = directions[:7]
+    col_directions = directions[7:]
+
+    # identify correct row, col, and seat ID
+    row = binary_parser(0, 127, row_directions)
+    col = binary_parser(0, 7, col_directions)
+    id_ = row*8 + col
+
+    return id_
+
+
+def binary_parser(start: int, end: int, directions: str) -> int:
+    """Apply binary search to traverse a range determined by input.
+
+    Traversal instructions:
+    For each char in `directions` that is visited (starting with midpoint),
+    shorten the range by moving into the half determiend by said char:
+    F/L -> left, B/R -> right.
+    """
+    left, right = start, end
+    pointer = 0
+    mid = 0
+
+    while pointer < len(directions):
+        mid = left + (right-left) // 2
+
+        # move into lower half
+        if directions[pointer] in "FL":
+            right = mid
+
+        # move into upper half
+        elif directions[pointer] in "BR":
+            left = mid + 1
+
+        pointer += 1
+
+    return left
 
 
 if __name__ == "__main__":
