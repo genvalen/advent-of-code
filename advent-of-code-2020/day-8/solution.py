@@ -1,7 +1,9 @@
 # Handheld Halting 
 # https://adventofcode.com/2020/day/8
 
-def part_one(data: list) -> int:
+from typing import List
+
+def part_one(data: List[str]) -> int:
     """Traverse a list in a specific order.
 
     Return the value of `acc` at the end of the traversal,
@@ -22,7 +24,7 @@ def part_one(data: list) -> int:
     return acc
 
 
-def part_two(data: list) -> int:
+def part_two(data: List[str]) -> int:
     """There is an unwanted cycle in the order of traversal provided.
 
     Swap exactly one operation (jmp -> nop or nop -> jmp) to remove the
@@ -45,7 +47,7 @@ def part_two(data: list) -> int:
     return part_one(data)
 
 
-def find_indicies_to_check(data: list, target: set = ("jmp", "nop")) -> set:
+def find_indicies_to_check(data: List[str], target: set = ("jmp", "nop")) -> set:
     """Return reachable indices whose value is a target value."""
     index = 0
     seen, indicies = set(), set()
@@ -64,7 +66,7 @@ def find_indicies_to_check(data: list, target: set = ("jmp", "nop")) -> set:
     return indicies
 
 
-def has_cycle(data: list) -> bool:
+def has_cycle(data: List[str]) -> bool:
     """Return whether a cycle has been detected."""
     index = 0
     list_end = len(data) - 1
