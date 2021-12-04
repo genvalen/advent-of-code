@@ -31,8 +31,50 @@ def part_one(data: List[List[int]]) -> int:
     return int(gamma, 2) * int(epsilon, 2)
 
 
-def part_two(data):
-    pass
+def part_two(data: List[List[int]]) -> int:
+    oxygen, co2 = data.copy(), data.copy()
+    data_subset = defaultdict(list)
+
+    # Find oxygen value.
+    col = 0
+    while len(oxygen) > 1:
+        for row in range(len(oxygen)):
+            cur = oxygen[row][col]
+            if cur == 1:
+                data_subset[1].append(oxygen[row])
+            else:
+                data_subset[0].append(oxygen[row])
+
+
+            # Select a subset to move forward with based on condition.
+            if row == len(oxygen) - 1:
+                max_ = 1 if (len(data_subset[1]) / len(oxygen)) >= 0.5 else 0
+                oxygen = data_subset[max_].copy()
+                data_subset.clear()
+        col += 1
+
+    # Find co2 value.
+    col = 0
+    while len(co2) > 1:
+        for row in range(len(co2)):
+            cur = co2[row][col]
+            if cur == 1:
+                data_subset[1].append(co2[row])
+            else:
+                data_subset[0].append(co2[row])
+
+            # Select a subset to move forward with based on condition.
+            if row == len(co2) - 1:
+                min_ = 0 if (len(data_subset[0]) / len(co2)) <= 0.5 else 1
+                co2 = data_subset[min_].copy()
+                data_subset.clear()
+        col += 1
+
+    # Build oxygen and co2 binary strings.
+    oxygen = "".join(map(str, oxygen[0]))
+    co2 = "".join(map(str, co2[0]))
+
+    return int(oxygen, 2) * int(co2, 2)
 
 
 if __name__ == '__main__':
