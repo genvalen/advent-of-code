@@ -1,8 +1,8 @@
 # Day 13: Distress Signal
 # https://adventofcode.com/2022/day/13
 
-from typing import List, Deque, Union
-from collections import defaultdict, deque
+from typing import List, Union
+from collections import defaultdict
 from functools import cmp_to_key
 
 
@@ -19,7 +19,7 @@ def part_one(data: List[str]) -> int:
             pair_index += 1
         else:
             evaluated_line: List[Union[int, List]] = [eval(line)]
-            dict_of_pairs[pair_index].append(deque(evaluated_line))
+            dict_of_pairs[pair_index].append(evaluated_line)
 
     for key, (left, right) in dict_of_pairs.items():
         if is_pair_ordered(left, right) == -1:
@@ -32,16 +32,23 @@ def part_two(data: List[str]) -> int:
     """
     Return product of the indices of each decoder-key after sorting data.
     """
-    evaluated_data: List[Union[int, List]] = [eval(line) for line in data if line != "\n"]
+    evaluated_data: List[Union[int, List]] = [
+        eval(line) for line in data if line != "\n"
+    ]
     decode_key_1, decode_key_2 = [[2]], [[6]]
     evaluated_data.extend([decode_key_1, decode_key_2])
     sorted_list = sorted(
-         evaluated_data, key=cmp_to_key(lambda x, y: is_pair_ordered(deque([x]), deque([y])))
+        evaluated_data,
+        key=cmp_to_key(
+            lambda x, y: is_pair_ordered([x], [y])
+        ),  # put x, y in list to satisfy mypy
     )
     return (sorted_list.index(decode_key_1) + 1) * (sorted_list.index(decode_key_2) + 1)
 
 
-def is_pair_ordered(left_deque: Deque, right_deque: Deque) -> int:
+def is_pair_ordered(
+    left_list: List[Union[int, List]], right_list: List[Union[int, List]]
+) -> int:
     """
     A comparison function; compares two items, `left` and `right`.
 
@@ -50,9 +57,12 @@ def is_pair_ordered(left_deque: Deque, right_deque: Deque) -> int:
         1 if `left` is bigger than `right`.
         0 if `left` is the same as `right`.
     """
-    while left_deque and right_deque:
-        left_item = left_deque.popleft()
-        right_item = right_deque.popleft()
+    LEFT_LENGTH = len(left_list)
+    RIGHT_LENGTH = len(right_list)
+    index = 0
+    while index < LEFT_LENGTH and index < RIGHT_LENGTH:
+        left_item = left_list[index]
+        right_item = right_list[index]
 
         if left_item != right_item:
             if isinstance(left_item, int) and isinstance(right_item, int):
@@ -60,24 +70,23 @@ def is_pair_ordered(left_deque: Deque, right_deque: Deque) -> int:
                     return -1
                 elif left_item > right_item:
                     return 1
-                return 0
 
             elif isinstance(left_item, list) and isinstance(right_item, list):
-                return is_pair_ordered(deque(left_item), deque(right_item))
+                return is_pair_ordered(left_item, right_item)
 
             elif isinstance(left_item, list) and isinstance(right_item, int):
-                new_right_item = [right_item]
-                left_deque.appendleft(left_item)
-                right_deque.appendleft(new_right_item)
+                right_list[index] = [right_item]
+                continue
 
             elif isinstance(left_item, int) and isinstance(right_item, list):
-                new_left_item = [left_item]
-                left_deque.appendleft(new_left_item)
-                right_deque.appendleft(right_item)
+                left_list[index] = [left_item]
+                continue
 
-    if not left_deque and right_deque:
+        index += 1
+
+    if index == LEFT_LENGTH and index < RIGHT_LENGTH:
         return -1
-    elif left_deque and not right_deque:
+    elif index < LEFT_LENGTH and index == RIGHT_LENGTH:
         return 1
     return 0
 
